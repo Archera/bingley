@@ -1,1 +1,0 @@
-# bingley.github.io
