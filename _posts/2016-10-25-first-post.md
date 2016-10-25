@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Post with a Background Image
-description: "Sample post with a background image CSS override."
-tags: [sample post]
+title: Nothing
+description: "这是我的第一篇博客！"
+tags: starter
 image:
   background: triangular.png
 ---
