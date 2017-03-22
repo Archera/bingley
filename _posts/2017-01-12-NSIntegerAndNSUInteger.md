@@ -1,7 +1,7 @@
 ---
 layout: post
-title: swift perfect
-description: 用swift开发服务器
+title: NSInteger 和 NSUInteger
+description: NSInteger 和 NSUInteger
 tags: starter
 image:
   background: triangular.png
