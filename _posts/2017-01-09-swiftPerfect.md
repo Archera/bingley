@@ -15,7 +15,7 @@ image:
     Apple Swift version 3.0-dev(LLVM 3863c393d9, Clang d03752fe45, Swift e996f0c248)
     Target: x86_64-apple-macosx10.9
     
- ### OSX
+### OSX
  
  先安装[Home Brew](http://brew.sh/index_zh-cn.html)，可以使用brew --version查看是否安装,brew是用来管理插件的,下面死安装命令：
  
