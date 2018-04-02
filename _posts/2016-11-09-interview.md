@@ -142,28 +142,28 @@ atomic是Objc使用的一种线程保护技术，基本上来讲，是防止在�
     }
 
 
-###6. @synthesize和@dynamic分别有什么作用？
+### 6. @synthesize和@dynamic分别有什么作用？
     
 @synthesize自动生成getter和setter方法
 @dynamic手动生成
 
-###7. ARC下，不显式指定任何属性关键字时，默认的关键字都有哪些？
+### 7. ARC下，不显式指定任何属性关键字时，默认的关键字都有哪些？
 
 atomic,readwrite,assign,strong
 
-###8. objc中向一个对象发送消息[obj foo]和`objc_msgSend()`函数之间有什么关系？
+### 8. objc中向一个对象发送消息[obj foo]和`objc_msgSend()`函数之间有什么关系？
 
 [obj foo]编译器编译之后就是`objc_msgSend()`
 
-###9. 什么时候会报unrecognized selector的异常？
+### 9. 什么时候会报unrecognized selector的异常？
 
 调用的方法不存在，消息传递机制，objc_msgSend(receiver, selector)。
 
-###10. 一个objc对象的isa的指针指向什么？有什么作用？
+### 10. 一个objc对象的isa的指针指向什么？有什么作用？
 
 指向他的类对象，从而可以找到对象上的方法
 
-###11. 下面的代码输出什么？
+### 11. 下面的代码输出什么？
 
  ```Objective-C
 	@implementation Son : Father
@@ -188,53 +188,53 @@ super和self是指向的同一个消息接受者！他们两个的不同点在�
 
 这也就是为什么说“不推荐在 init 方法中使用点语法”，如果想访问实例变量 iVar 应该使用下划线（ `_iVar` ），而非点语法（ `self.iVar` ）。点语法（ `self.iVar` ）的坏处就是子类有可能覆写 setter 。
 
-###12. runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）
+### 12. runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）
 
 每一个类中都有一个方法列表，方法列表中记载着方法名称，方法的实现以及参数类型，其实selector的本质就是方法名称，通过这个名称就可以在方法列表中找到对应的实现方法。
 
-###13. 使用runtime Associate方法关联的对象，需要在主对象dealloc的时候释放么？
+### 13. 使用runtime Associate方法关联的对象，需要在主对象dealloc的时候释放么？
 
 不需要 
 > [ runtime Associate方法关联对象 ](https://my.oschina.net/carson6931/blog/506050)
 >
 
-###14.@synthesize合成实例变量的规则是什么？假如property名为foo，存在一个名为_foo的实例变量，那么还会自动合成新变量么？
+### 14.@synthesize合成实例变量的规则是什么？假如property名为foo，存在一个名为_foo的实例变量，那么还会自动合成新变量么？
 
 @synthesize会先生成一个实例变量，如果有则不生成，然后创建setter和getter方法
 
-###15.objc中向一个nil对象发送消息将会发生什么？
+### 15.objc中向一个nil对象发送消息将会发生什么？
 
 会返回null，不会奔溃，因为isa指向的是0
 
-###16.objc中向一个对象发送消息[obj foo]和objc_msgSend()函数之间有什么关系？
+### 16.objc中向一个对象发送消息[obj foo]和objc_msgSend()函数之间有什么关系？
 
 [obj foo]实际上调用的是objc_msgSend(obj,@selector(foo))
 
-###17.什么时候会报unrecognized selector的异常？
+### 17.什么时候会报unrecognized selector的异常？
 
 在像一个不存在的方法发生消息时
 
-###18.一个objc对象如何进行内存布局？（考虑有父类的情况）
+### 18.一个objc对象如何进行内存布局？（考虑有父类的情况）
 
 1. 父类的实力对象和自己的实力对象都存储在该对象所对应的存储空间中
 2. 每个实例对象都有个isa指针指向该对象的类对象，类对象中储存着实例对象的方法列表，属性列表，成员变量列表，类对象也有个isa指针指向元类，元类中储存这类对象的类方法列表，元类中还有一个superclass指针指向元类的父类，就这样一直指向NSObject类。
 
-###19.一个objc对象的isa的指针指向什么？有什么作用？
+### 19.一个objc对象的isa的指针指向什么？有什么作用？
 
 答案同上
 
-###20.runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）
+### 20.runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）
 
 对象发送消息时，会先去cache里面查找SEL，SEL其实是一个方法ID，通过该ID去找队友的IMP地址。如果cache里没有，这去isa指向的类对象的实例方法列表中去寻找，如果是类方法，则会去类对象的isa指针指向的元类去查找类方法列表。
 
-###21._objc_msgForward函数是做什么的，直接调用它将会发生什么
+### 21._objc_msgForward函数是做什么的，直接调用它将会发生什么
 消息重定向的，直接调用如果你本来就已经实现了某方法，但是这个方法也不会执行了。
 
-###22.runtime如何实现weak变量的自动置nil？
+### 22.runtime如何实现weak变量的自动置nil？
 
 runtime 对注册的类， 会进行布局，对于 weak 对象会放入一个 hash 表中。 用 weak 指向的对象内存地址作为 key，当此对象的引用计数为0的时候会 dealloc， 在这个 weak 表中搜索，找到所有以a为键的 weak 对象，从而设置为 nil。
 
-###23.KVO KVC的实现原理
+### 23.KVO KVC的实现原理
 
 KVO:
 
@@ -250,7 +250,7 @@ KVC:
 4. 如果还没找到，则调用valueForUndefinedKey:和setValue:forUndefinedKey:方法。这些方法的默认实现都是抛出异常，我们可以根据需要重写它们。
 
   
-###24. objc中的类方法和实例方法有什么本质区别和联系？
+### 24. objc中的类方法和实例方法有什么本质区别和联系？
 
 类方法：
 
@@ -286,21 +286,21 @@ __weak只能在ARC模式下使用，也只能修饰对象，不能修饰基本�
 
 __block对象可以在block中被重新赋值，__weak不行。
 
-###27. objc使用什么机制管理对象内存？
+### 27. objc使用什么机制管理对象内存？
 
 通过retaincount的机制来决定是否释放对象。
 每次runloop的时候，都会检查对象retaincount，如果retaincount为0，说明该对象没有地方需要继续使用，可以释放掉了。
 
-###28. 不手动指定autoreleasepool的前提下，一个autorealese对象在什么时刻释放？（比如在一个vc的viewDidLoad中创建）
+### 28. 不手动指定autoreleasepool的前提下，一个autorealese对象在什么时刻释放？（比如在一个vc的viewDidLoad中创建）
 
 如果在一个vc的viewDidLoad中创建一个 Autorelease对象，那么该对象会在 viewDidAppear 方法执行前就被销毁了。
 
-###29. BAD_ACCESS在什么情况下出现？
+### 29. BAD_ACCESS在什么情况下出现？
 
 访问了野指针，比如对一个已经释放的对象执行了release、访问已经释放的对象的成员变量或者发消息。
 死循环。
 
-###30. 使用block时什么情况会发生引用循环，如何解决？
+### 30. 使用block时什么情况会发生引用循环，如何解决？
 
 一个对象中强引用了block，在block中又强引用了该对象。
 
@@ -314,7 +314,7 @@ __block对象可以在block中被重新赋值，__weak不行。
 
 检测代码中是否存在循环引用问题，可使用 Facebook 开源的一个检测工具  [***FBRetainCycleDetector***](https://github.com/facebook/FBRetainCycleDetector) 。
 
-###31. 在block内如何修改block外部变量？
+### 31. 在block内如何修改block外部变量？
 
 在block外部变量前加__block修饰符
 
@@ -329,19 +329,14 @@ __block对象可以在block中被重新赋值，__weak不行。
  
 `__block` 所起到的作用就是只要观察到该变量被 block 所持有，就将“外部变量”在栈中的内存地址放到了堆中。进而在block内部也可以修改外部变量的值。
 
-###32. 如何调试BAD_ACCESS错误
+### 32. 如何调试BAD_ACCESS错误
 
 1. 重写object的respondsToSelector方法，现实出现EXEC_BAD_ACCESS前访问的最后一个object
  2. 通过 Zombie 
 ![enter image description here](http://i.stack.imgur.com/ZAdi0.png)
 
  3. 设置全局断点快速定位问题代码所在行
- 
-### 55. lldb（gdb）常用的调试命令？
 
- - breakpoint 设置断点定位到某一个函数
- - n 断点指针下一步
- - po打印对象
 
 ### 33. 写一个NSString类型的getter和setter方法
 
@@ -422,3 +417,23 @@ loadView是设置自定义view的位置。
 2. Block本质是Objective-C对象，是NSObject的子类，可以接收消息。
 3. 函数里面只能访问全局变量，而Block代码块不光能访问全局变量，还拥有当前栈内存和堆内存变量的可读性（当然通过__block访问指示符修饰的局部变量还可以在block代码块里面进行修改）。
 4. 从内存的角度看，函数指针只不过是指向代码区的一段可执行代码，而block实际上是程序运行过程中在栈内存动态创建的对象，可以向其发送copy消息将block对象拷贝到堆内存，以延长其生命周期。
+
+### 40. lldb（gdb）常用的调试命令？
+
+ - breakpoint 设置断点定位到某一个函数
+ - n 断点指针下一步
+ - po打印对象
+
+### 41. 栈和堆的区别
+
+栈：非OC对象一般放在栈里面，系统会自动回收内存，栈有两种分配方式，静态分配和动态分配。静态分配由系统编译器完成，例如局部变量的分配；动态分配由alloc函数分配。OC对象只有block对象放在栈分配，block是新的对象，当你使用block时候，如果你想对其保持引用，你需要对其进行copy操作，（从栈上copy到堆中，并返回一个指向他的指针）。
+
+栈的优点：速度快，在栈上分配内存非常快。简单，栈有自己的声明周期，不需要自己管理，并且我们不用当心内存泄露的问题。
+
+栈的缺点：栈对象严格的定义了生命周期也是其主要的缺点,栈对象的生命周期不适于Objective-C的引用计数内存管理方法。
+
+堆：OC对象一般放在堆里，需要程序员自己释放内存，堆只有动态分配
+
+堆对象优点：可以自己控制对象的生命周期。
+
+堆对象缺点：需要程序员手动释放，容易造成内存泄漏。
