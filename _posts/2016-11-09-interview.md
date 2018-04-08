@@ -437,3 +437,24 @@ loadView是设置自定义view的位置。
 堆对象优点：可以自己控制对象的生命周期。
 
 堆对象缺点：需要程序员手动释放，容易造成内存泄漏。
+
+### 42. block为什么要用copy修饰符？
+
+因为要把block从栈上copy到堆上，相对于一直强引用着，栈的内存是系统管理的随时可能被回收，所以在block里使用self时，要做弱引用操作。
+
+### 43. MRC和ARC哪个性能好？
+
+一般情况下ARC性能好，但是在处理临时变量时MRC性能会好，因为ARC会产生额外的retain和release。
+
+~~~
+- (void)doSomething:(id)object{
+    [object retain];
+    //一些其他逻辑
+    [object release];
+}
+~~~
+
+### 44. 什么时候使用autoreleasepool，autoreleasepool与runloop有什么联系
+
+在有大量临时变量产生的时候使用autoreleasepool，例如在for循环中创建大量的临时对象或变量。对于每一个runloop系统都会隐式的创建一个autoreleasepool，这样所有的autoreleasepool会构成一个栈式结构，在每一个runloop结束时，栈顶的autoreleasepool会被销毁，这样pool里的每个object会被释放。
+
